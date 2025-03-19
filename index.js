@@ -16,25 +16,11 @@ app.use(cors());
 dotenv.config({ path: "./config.env" });
 
 // DB CONNECTION
-const DB = process.env.DB_URL;
+const DB = process.env.MONGO_URL;
 mongoose.connect(DB).then(() => console.log("connect to DB successfully..."));
 
 // API ENDPOINTS
 app.use("/api/v1", mainRouter);
-
-app.post("/signin", (req, res) => {
-  res.status(201).json({
-    status: "success",
-    message: "<Signin>",
-  });
-});
-
-app.post("/me", (req, res) => {
-  res.status(201).json({
-    status: "success",
-    message: "<Update data>",
-  });
-});
 
 // SERVER CONNECTION
 const port = 6000;

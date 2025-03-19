@@ -9,8 +9,16 @@ const mainRouter = require("./routes/index");
 const app = express();
 
 // MIDDLEWARES
+
+app.use(
+  cors({
+    credentials: true, // Allow cookies and credentials
+    origin: "http://localhost:5174",
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+  })
+);
 app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 // READING .env file
 dotenv.config({ path: "./config.env" });
@@ -23,7 +31,7 @@ mongoose.connect(DB).then(() => console.log("connect to DB successfully..."));
 app.use("/api/v1", mainRouter);
 
 // SERVER CONNECTION
-const port = 6000;
+const port = 8000;
 app.listen(port, (req, res) => {
   console.log(`connected on port ${port}...`);
 });
